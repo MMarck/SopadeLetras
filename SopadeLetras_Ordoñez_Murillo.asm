@@ -11,6 +11,7 @@ msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
 msgSelect db "Ingrese el numero de la categoria deseada: $"
 array db 'BUBRPQYFODFZXIQ'
+      db 'MSVDJVQDTLOEATF' 
  
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -100,14 +101,25 @@ jmp exit
 printArray:
 mov dx,0000h
 mov ah, 02h
-mov dl,array[bx]
-int 21h
-mov dl, 20h
-int 21h
-add bx,1
-cmp bx,15
+mov cx, 0000h
+outerLoop:
+call nwLine
+mov cl, 00h
+add ch,1
+cmp ch,2
 jz exit
-jnz printArray
+jnz innerLoop:
+    innerLoop:
+    mov dl,array[bx]
+    int 21h
+    mov dl, 20h
+    int 21h
+    add bx,1
+    add cl,1
+    cmp cl,15
+    jz outerLoop:
+    jnz innerLoop:
+
 
 
 
