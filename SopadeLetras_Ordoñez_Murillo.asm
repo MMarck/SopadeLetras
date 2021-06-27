@@ -10,6 +10,7 @@ msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
 msgSelect db "Ingrese el numero de la categoria deseada: $"
+array db 'BUBRPQYFODFZXIQ'
  
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -61,7 +62,7 @@ MOV AH, 09h
 LEA DX,msgOP3
 INT 21h
 
-;esta partecita imipmer un mensaje y
+;esta partecita imprime un mensaje y
 ;pide el valor para la categoria
 CALL nwLine
 CALL nwLine
@@ -71,6 +72,42 @@ INT 21h
 MOV AH, 01h
 INT 21h       
 
+;Esta parte va a hacer la comparacion
+cmp al, 31h
+jz animales
+cmp al, 32h
+jz vehiculos
+cmp al, 33h
+jz lenguajes  
+
+animales:
+call nwLine
+printn 'Usted ha escogido animales'
+call nwLine
+mov bx, 0000h
+jmp printArray
+
+vehiculos:
+call nwLine
+printn 'Usted ha escogido vehiculos de transporte'
+jmp exit
+
+lenguajes:
+call nwLine
+printn 'Usted ha escogido lenguajes de programacion'
+jmp exit
+
+printArray:
+mov dx,0000h
+mov ah, 02h
+mov dl,array[bx]
+int 21h
+mov dl, 20h
+int 21h
+add bx,1
+cmp bx,15
+jz exit
+jnz printArray
 
 
 
@@ -87,7 +124,10 @@ INT 21h
 RET
 nwLine ENDP            
          
-;;;;;;; FIN PROCEMIENTOS ;;;;;;;;         
+;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
+
+exit:
+end         
           
           
           
