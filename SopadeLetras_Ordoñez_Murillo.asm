@@ -9,11 +9,7 @@ msgInicio2 db " una de las siguientes categorias:$"
 msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
-msgSelect db "Ingrese el numero de la categoria deseada: $"
-<<<<<<< Updated upstream
-array db 'BUBRPQYFODFZXIQ'
-      db 'MSVDJVQDTLOEATF' 
-=======
+msgSelect db "Ingrese el numero de la categoria deseada: $" 
 
 animales1   db 'BUBRPQYFODFZXIQ'
             db 'MSVDJVQDTLOEATF'
@@ -110,7 +106,6 @@ lenguajes2  db 'SLKFMBCULKVYUIM'
             db 'KOMCOUKNGQEPQVS'
             db 'XXRXJUJUBEXVGGA'
             db 'MNKJQKZAACVCLDW'  
->>>>>>> Stashed changes
  
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -178,7 +173,8 @@ jz animales
 cmp al, 32h
 jz vehiculos
 cmp al, 33h
-jz lenguajes  
+jz lenguajes
+jmp errorInicio  
 
 animales:
 call nwLine
@@ -200,28 +196,6 @@ jmp exit
 printArray:
 mov dx,0000h
 mov ah, 02h
-<<<<<<< Updated upstream
-mov cx, 0000h
-outerLoop:
-call nwLine
-mov cl, 00h
-add ch,1
-cmp ch,2
-jz exit
-jnz innerLoop:
-    innerLoop:
-    mov dl,array[bx]
-    int 21h
-    mov dl, 20h
-    int 21h
-    add bx,1
-    add cl,1
-    cmp cl,15
-    jz outerLoop:
-    jnz innerLoop:
-
-
-=======
 mov dl,animales1[bx]
 int 21h
 mov dl, 20h
@@ -240,7 +214,6 @@ mov cl, 00h
 cmp ch,15
 jz exit
 jnz printArray
->>>>>>> Stashed changes
 
 
 ;;;;;;; PROCEMIENTOS ;;;;;;;;
@@ -257,7 +230,17 @@ RET
 nwLine ENDP            
          
 ;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
+     
+errorInicio:
+CALL nwLine 
+CALL nwLine
+printn '!! Favor ingresar un valor valido !! . . .'
+CALL nwLine 
+CALL nwLine
+jmp menuInicio
 
+  
+  
 exit:
 end         
           
