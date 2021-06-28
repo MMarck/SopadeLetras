@@ -10,8 +10,107 @@ msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
 msgSelect db "Ingrese el numero de la categoria deseada: $"
+<<<<<<< Updated upstream
 array db 'BUBRPQYFODFZXIQ'
       db 'MSVDJVQDTLOEATF' 
+=======
+
+animales1   db 'BUBRPQYFODFZXIQ'
+            db 'MSVDJVQDTLOEATF'
+            db 'RCZPIFYGAZLPMFN'
+            db 'LVWKFFBKDXHFIUW'
+            db 'AOSEFQEMOOTGQUR'
+            db 'ELLWTGNJJKAJISJ'
+            db 'OVCOXLUEQTSDDSP'
+            db 'UEAEMTNYOLVYMGI'
+            db 'ORREPOMJZGYPHAI'
+            db 'IFTLCBJFVOYHLUB'
+            db 'WTOWZQFRAXQRLMR'
+            db 'KGNYIIHHHKFUKIJ'
+            db 'XMLSACGMVXEYSIT'
+            db 'TSOESQVSEQRFNPU'
+            db 'ODDQMDFWRGETDLY'
+ 
+animales2   db 'GFTTESFLVXBCNKN'
+            db 'WOUHHIEWJRBMOCY'
+            db 'SARZEXFQOILXEFJ'
+            db 'SCVIBJJFAEXBLAW'
+            db 'RDUCLZZTMOFXCHO'
+            db 'PIHJYAMPKNKOFFC'
+            db 'PANDAHYMCSFCASM'
+            db 'ATVHFXQZBMNSDLL'
+            db 'ESBURMUDJQPPYRO'
+            db 'EIFXOAALKPCIJOB'
+            db 'RUVNHKTORTWDPDO'
+            db 'XTALKIBKCEJXQVP'
+            db 'NMVWISPWOBVXQCE'
+            db 'KAGIWKOEXXHKSNJ'
+            db 'DBWIPFHWPKVSFJQ'
+         
+vehiculos1  db 'KZARUTAMJSMZQTP'
+            db 'MERTUHVWULFFKIL'
+            db 'RTRFDINBBFPDIOX'
+            db 'CEFOFXTOUNVGCWV'
+            db 'NCKXECWMIIFJEDB'
+            db 'NHDHXJAVEVBODXG'
+            db 'NDAUXSIYPFAMCAK'
+            db 'CEJYFMNJIIELSTW'
+            db 'YKIOIIPHICZHQIN'
+            db 'XRKRBBIUMDSJWDH'
+            db 'NWLJBAPOCDQEDNW'
+            db 'MYURINFCFZTPNAN'
+            db 'FIKHLGDRRSZQRYM'
+            db 'JIAZORRACRRGSGJ'
+            db 'UEVAQMXBQZLEOQG'
+
+vehiculos2  db 'APAGMZYPEDZBCBV'
+            db 'GGGAOZQVITIRGNK'
+            db 'WYUVTHYVSCECOFU'
+            db 'QIHWODXKIQCCAHX'
+            db 'MIIHMRICJTDPCRU'
+            db 'ZFDNHYLTTEMAFYL'
+            db 'OXMDCESAGQTWTNP'
+            db 'YEFETURKXPPZUWQ'
+            db 'ZOMAMJULOZXNCOL'
+            db 'NOIMACLIKDSEURD'
+            db 'GYRALXJSTSEPKGH'
+            db 'YIZCHCAGWCQGXDX'
+            db 'VOKJOODSICOTDLA'
+            db 'DNSRBYLSFZISZUI'
+            db 'LOCOMOTORABSPOF'
+            
+lenguajes1  db 'CTHCEQRQSSOGLFM'
+            db 'PRAHSCZTQPSTAMK'
+            db 'JZCRNWMDYGYWCEA'
+            db 'BMAKCWJTJYNOSGT'
+            db 'MDRZXFHVRIBXAAA'
+            db 'QWFPTOCUUEJUPRT'
+            db 'PWBKNAHRIYAZRSA'
+            db 'XXXIXWRAFUVHQZK'
+            db 'IGCHBGBRBQAWHKG'
+            db 'LFDQIDYKWJFLNBQ'
+            db 'OOQQONPTEKNRILW'
+            db 'GJYPPDOLNIJZBXY'
+            db 'KSVXEKAOXQHDBFZ'
+            db 'ZVZKXDBBGMFLHXB'
+            db 'HZRVKLCEIKWHXBA'
+            
+lenguajes2  db 'SLKFMBCULKVYUIM'
+            db 'TWCDQFYIVIKUXKB'
+            db 'GNIWEQBOSYEMDTJ'
+            db 'WDHFZZPUIEDERYQ'
+            db 'KMTGTKAKROMUSUV'
+            db 'BELBLLTUVJQHCRW'
+            db 'UPLUBYJKNUXORLF'
+            db 'SGMAOOEENBOGIWR'
+            db 'JVSTLPTEGPPNPJW'
+            db 'YINCASSEMBLYTTU'
+            db 'CHWTIOIWORDZDRV'
+            db 'BRZCNRAVRWAMUNU'
+            db 'KOMCOUKNGQEPQVS'
+            db 'XXRXJUJUBEXVGGA'
+            db 'MNKJQKZAACVCLDW'  
+>>>>>>> Stashed changes
  
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -101,6 +200,7 @@ jmp exit
 printArray:
 mov dx,0000h
 mov ah, 02h
+<<<<<<< Updated upstream
 mov cx, 0000h
 outerLoop:
 call nwLine
@@ -121,6 +221,26 @@ jnz innerLoop:
     jnz innerLoop:
 
 
+=======
+mov dl,animales1[bx]
+int 21h
+mov dl, 20h
+int 21h
+add bx, 1
+add cl, 1
+cmp cl,15
+jz nextRow
+jnz printArray
+
+
+nextRow:
+call nwLine
+add ch,1
+mov cl, 00h
+cmp ch,15
+jz exit
+jnz printArray
+>>>>>>> Stashed changes
 
 
 ;;;;;;; PROCEMIENTOS ;;;;;;;;
