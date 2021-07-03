@@ -9,11 +9,7 @@ msgInicio2 db " una de las siguientes categorias:$"
 msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
-msgSelect db "Ingrese el numero de la categoria deseada: $"
-<<<<<<< Updated upstream
-array db 'BUBRPQYFODFZXIQ'
-      db 'MSVDJVQDTLOEATF' 
-=======
+msgSelect db "Ingrese el numero de la categoria deseada: $" 
 
 animales1   db 'BUBRPQYFODFZXIQ'
             db 'MSVDJVQDTLOEATF'
@@ -177,7 +173,8 @@ jz animales
 cmp al, 32h
 jz vehiculos
 cmp al, 33h
-jz lenguajes  
+jz lenguajes
+jmp errorInicio  
 
 animales:
 call nwLine
@@ -199,7 +196,6 @@ jmp exit
 printArray:
 mov dx,0000h
 mov ah, 02h
-mov cx, 0000h
 mov dl,animales1[bx]
 int 21h
 mov dl, 20h
@@ -234,7 +230,17 @@ RET
 nwLine ENDP            
          
 ;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
+     
+errorInicio:
+CALL nwLine 
+CALL nwLine
+printn '!! Favor ingresar un valor valido !! . . .'
+CALL nwLine 
+CALL nwLine
+jmp menuInicio
 
+  
+  
 exit:
 end         
           
