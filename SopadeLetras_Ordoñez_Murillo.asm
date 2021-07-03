@@ -110,7 +110,6 @@ lenguajes2  db 'SLKFMBCULKVYUIM'
             db 'KOMCOUKNGQEPQVS'
             db 'XXRXJUJUBEXVGGA'
             db 'MNKJQKZAACVCLDW'  
->>>>>>> Stashed changes
  
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -200,28 +199,7 @@ jmp exit
 printArray:
 mov dx,0000h
 mov ah, 02h
-<<<<<<< Updated upstream
 mov cx, 0000h
-outerLoop:
-call nwLine
-mov cl, 00h
-add ch,1
-cmp ch,2
-jz exit
-jnz innerLoop:
-    innerLoop:
-    mov dl,array[bx]
-    int 21h
-    mov dl, 20h
-    int 21h
-    add bx,1
-    add cl,1
-    cmp cl,15
-    jz outerLoop:
-    jnz innerLoop:
-
-
-=======
 mov dl,animales1[bx]
 int 21h
 mov dl, 20h
@@ -240,7 +218,6 @@ mov cl, 00h
 cmp ch,15
 jz exit
 jnz printArray
->>>>>>> Stashed changes
 
 
 ;;;;;;; PROCEMIENTOS ;;;;;;;;
