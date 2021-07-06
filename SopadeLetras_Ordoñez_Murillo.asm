@@ -9,7 +9,12 @@ msgInicio2 db " una de las siguientes categorias:$"
 msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
-msgSelect db "Ingrese el numero de la categoria deseada: $" 
+msgSelect db "Ingrese el numero de la categoria deseada: $"
+msgVersion db "Ingrese una version (1 o 2): $" 
+
+;variables para el ingreso de palabras
+msgPalabra    db  " Ingresa una palabra: $"
+palabra        db 100,?, 100 dup(' ') 
 
 animales1   db 'BUBRPQYFODFZXIQ'
             db 'MSVDJVQDTLOEATF'
@@ -174,25 +179,106 @@ cmp al, 32h
 jz vehiculos
 cmp al, 33h
 jz lenguajes
-jmp errorInicio  
+jmp errorIngreso  
 
 animales:
 call nwLine
 printn 'Usted ha escogido animales'
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+jz animalesv1 
+cmp al, 32h
+;jz animalesv2
+jmp errorIngreso
+
+animalesv1:
+call nwLine
+printn 'Usted ha escogido animales - version 1'
 call nwLine
 mov bx, 0000h
-jmp printArray
+call printSoup
+;pedir palabra
+mov dx, offset msgPalabra
+mov ah, 9
+int 21h
+; input a string:
+mov dx, offset palabra
+mov ah, 0ah
+int 21h
+jmp exit
+
 
 vehiculos:
 call nwLine
 printn 'Usted ha escogido vehiculos de transporte'
-jmp exit
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+;jz vehiculosv1
+cmp al, 32h
+;jz vehiculosv2
+jmp errorIngreso
+
+
 
 lenguajes:
 call nwLine
 printn 'Usted ha escogido lenguajes de programacion'
-jmp exit
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
 
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+;jz lenguajesv1
+cmp al, 32h
+;jz lenguajesv2
+jmp errorIngreso
+
+
+
+
+;;;;;;; PROCEMIENTOS ;;;;;;;;
+
+
+;NUEVA LINEA: Este procedimiento realiza un salto de linea           
+nwLine PROC
+MOV AH,02h
+MOV DX,0Ah; imprime asscii 10 (nueva linea)
+INT 21h
+MOV DX,0Dh; imprime asscii 13 (retorno de carro)
+INT 21h
+RET
+nwLine ENDP
+
+
+printSoup PROC
+    
 printArray:
 mov dx,0000h
 mov ah, 02h
@@ -212,27 +298,15 @@ call nwLine
 add ch,1
 mov cl, 00h
 cmp ch,15
-jz exit
 jnz printArray
-
-
-;;;;;;; PROCEMIENTOS ;;;;;;;;
-
-
-;NUEVA LINEA: Este procedimiento realiza un salto de linea           
-nwLine PROC
-MOV AH,02h
-MOV DX,0Ah; imprime asscii 10 (nueva linea)
-INT 21h
-MOV DX,0Dh; imprime asscii 13 (retorno de carro)
-INT 21h
-RET
-nwLine ENDP            
+    
+RET    
+printSoup ENDP    
          
 ;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
 
      
-errorInicio:
+errorIngreso:
 CALL nwLine 
 CALL nwLine
 printn '!! Favor ingresar un valor valido !! . . .'
