@@ -15,7 +15,7 @@ msgVersion db "Ingrese una version (1 o 2): $"
 
 ;variables para el ingreso de palabras
 msgPalabra      db  " Ingresa una palabra: $"
-bufferPalabra   db 18,?, 18 dup(' ')  
+bufferPalabra   db 14,?, 14 dup(' ')  
 aciertos        db 0
 
 
@@ -116,7 +116,13 @@ lenguajes2  db 'SLKFMBCULKVYUIM'
             db 'BRZCNRAVRWAMUNU'
             db 'KOMCOUKNGQEPQVS'
             db 'XXRXJUJUBEXVGGA'
-            db 'MNKJQKZAACVCLDW'  
+            db 'MNKJQKZAACVCLDW'
+        
+palabraA1       db 12 dup (' ')
+palabraA2       db 12 dup (' ')
+palabraA3       db 12 dup (' ')
+palabraA4       db 12 dup (' ')
+palabraA5       db 12 dup (' ')  
 
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -214,8 +220,39 @@ animalesv1:
 call nwLine
 printn 'Usted ha escogido animales - version 1'
 call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'p'
+mov byte ptr[si+1],'e'
+mov byte ptr[si+2],'r'
+mov byte ptr[si+3],'r'
+mov byte ptr[si+4],'o'
+lea si, palabraA2
+mov byte ptr[si],'a'
+mov byte ptr[si+1],'v'
+mov byte ptr[si+2],'e'
+lea si, palabraA3
+mov byte ptr[si],'p'
+mov byte ptr[si+1],'e'
+mov byte ptr[si+2],'z'
+lea si, palabraA4
+mov byte ptr[si],'g'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'t'
+mov byte ptr[si+3],'o'
+lea si, palabraA5
+mov byte ptr[si],'c'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'n'
+mov byte ptr[si+3],'e'
+mov byte ptr[si+4],'j'
+mov byte ptr[si+5],'o'
+
+lea si, animales1
+
 
 MainView:
+;call printArrays
 mov bx, 0000h
 ;call printSoup
 ;pedir palabra
@@ -308,12 +345,12 @@ RET
 nwLine ENDP
 
 
-printSoup PROC
-    
+printArrays proc
+mov bx,0000h
 printArray:
 mov dx,0000h
 mov ah, 02h
-mov dl,animales1[bx]
+mov dl,byte ptr[si+bx]
 int 21h
 mov dl, 20h
 int 21h
@@ -329,10 +366,12 @@ call nwLine
 add ch,1
 mov cl, 00h
 cmp ch,15
+jz finproc
 jnz printArray
-    
-RET    
-printSoup ENDP 
+
+finproc:
+ret
+printArrays endp 
 
 ;Borrar el bufer de entrada
 clearBuffer PROC
@@ -357,12 +396,8 @@ clearBuffer ENDP
 esAcierto PROC
 jmp inicio    
     
-size = 16  ; tamanio de todas las palabras
-palabraA1       db 'perro           '
-palabraA2       db 'ave                           '
-palabraA3       db 'conejo                        '
-palabraA4       db 'pez                           '
-palabraA5       db 'gato                          ' 
+size = 12  ; tamanio de todas las palabras
+ 
  
 p1  db 0
 p2  db 0
