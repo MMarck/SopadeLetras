@@ -419,15 +419,11 @@ lea     si, bufferPalabra[2]
 mov     cx, size 
 
 ;Es perro?
-cmp p1, 1
-jz yaEncontrada
 lea     di, palabraA1
 repe    cmpsb
 jz      setP1
 
 ;Es ave?
-cmp p2, 1
-jz yaEncontrada
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -436,8 +432,6 @@ lea     di, palabraA2
 repe    cmpsb
 jz      setP2 
 ;Es conejo?
-cmp p3, 1
-jz yaEncontrada
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -446,8 +440,6 @@ lea     di, palabraA3
 repe    cmpsb
 jz      setP3
 ;Es pez?
-cmp p4, 1
-jz yaEncontrada
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -456,8 +448,6 @@ lea     di, palabraA4
 repe    cmpsb
 jz      setP4
 ;Es gato?
-cmp p5, 1
-jz yaEncontrada
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -488,7 +478,7 @@ call clearBuffer
 RET
 
 yaEncontrada:
-lea dx, yes
+lea dx, encontrada
 mov ah, 9
 int 21h
 CALL nwLine
@@ -496,22 +486,38 @@ call clearBuffer
 RET
 
 setP1:
+;verifica si la palabra 1 fue encontrada
+cmp p1, 1
+jz yaEncontrada
+;actualiza variable y muestra mensaje
 mov p1, 1
 add aciertos, 1
 jmp equal
+
 setP2:
+cmp p2, 1
+jz yaEncontrada
 mov p2, 1
 add aciertos, 1
 jmp equal
+
 setP3:
+cmp p3, 1
+jz yaEncontrada
 add aciertos, 1
 mov p3, 1
 jmp equal
+
 setP4:
+cmp p4, 1
+jz yaEncontrada
 add aciertos, 1
 mov p4, 1
 jmp equal
-setP5:
+
+setP5: 
+cmp p5, 1
+jz yaEncontrada
 add aciertos, 1
 mov p5, 1
 jmp equal  
