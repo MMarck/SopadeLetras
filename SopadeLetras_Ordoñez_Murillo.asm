@@ -10,11 +10,21 @@ msgOP1 db " 1 - Animales$"
 msgOP2 db " 2 - Vehiculos de transporte$"
 msgOP3 db " 3 - Lenguajes de programacion$"
 msgSelect db "Ingrese el numero de la categoria deseada: $"
-msgVersion db "Ingrese una version (1 o 2): $" 
+msgVersion db "Ingrese una version (1 o 2): $"
+
 
 ;variables para el ingreso de palabras
-msgPalabra    db  " Ingresa una palabra: $"
-palabra        db 100,?, 100 dup(' ') 
+msgPalabra      db  " Ingresa una palabra: $"
+bufferPalabra   db 18,?, 18 dup(' ')
+
+size = 16  ; tamanio de todas las palabras
+palabraA1       db 'perro           '
+;palabraA2       db 'ave                           '
+;palabraA3       db 'conejo                        '
+;palabraA4       db 'pez                           '
+;palabraA5       db 'gato                          '
+
+
 
 animales1   db 'BUBRPQYFODFZXIQ'
             db 'MSVDJVQDTLOEATF'
@@ -209,15 +219,47 @@ call nwLine
 printn 'Usted ha escogido animales - version 1'
 call nwLine
 mov bx, 0000h
-call printSoup
+;call printSoup
 ;pedir palabra
 mov dx, offset msgPalabra
 mov ah, 9
 int 21h
 ; input a string:
-mov dx, offset palabra
+mov dx, offset bufferPalabra
 mov ah, 0ah
 int 21h
+
+xor bx, bx
+mov bl, bufferPalabra[1]
+mov bufferPalabra[bx+2], ' '
+;compobacion de que sea la pabra correcta 
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+lea     di, palabraA1
+mov     cx, size
+;comparar hasta que sea igual
+repe    cmpsb
+jnz     not_equal
+jz      equal
+
+equal:
+mov     al, 'y'
+mov     ah, 0eh
+int     10h
+cld 
+jmp exit
+
+not_equal:
+mov     al, 'n'
+mov     ah, 0eh
+int     10h
+cld 
+jmp exit
+  
+;comparar palabra
+cld 
 jmp exit 
 
 
