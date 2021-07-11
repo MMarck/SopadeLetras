@@ -15,14 +15,10 @@ msgVersion db "Ingrese una version (1 o 2): $"
 
 ;variables para el ingreso de palabras
 msgPalabra      db  " Ingresa una palabra: $"
-bufferPalabra   db 18,?, 18 dup(' ')
+bufferPalabra   db 18,?, 18 dup(' ')  
+aciertos        db 0
 
-size = 16  ; tamanio de todas las palabras
-palabraA1       db 'perro           '
-;palabraA2       db 'ave                           '
-;palabraA3       db 'conejo                        '
-;palabraA4       db 'pez                           '
-;palabraA5       db 'gato                          '
+
 
 
 
@@ -218,6 +214,8 @@ animalesv1:
 call nwLine
 printn 'Usted ha escogido animales - version 1'
 call nwLine
+
+MainView:
 mov bx, 0000h
 ;call printSoup
 ;pedir palabra
@@ -229,36 +227,22 @@ mov dx, offset bufferPalabra
 mov ah, 0ah
 int 21h
 
-xor bx, bx
-mov bl, bufferPalabra[1]
-mov bufferPalabra[bx+2], ' '
-;compobacion de que sea la pabra correcta 
-mov     ax, cs
-mov     ds, ax
-mov     es, ax
-lea     si, bufferPalabra[2]
-lea     di, palabraA1
-mov     cx, size
-;comparar hasta que sea igual
-repe    cmpsb
-jnz     not_equal
-jz      equal
+call esAcierto 
+cld
 
-equal:
-mov     al, 'y'
-mov     ah, 0eh
-int     10h
-cld 
-jmp exit
+cmp aciertos, 5
+jnz MainView
+jz WIN
 
-not_equal:
-mov     al, 'n'
-mov     ah, 0eh
-int     10h
+
 cld 
-jmp exit
-  
+jmp MainView  
 ;comparar palabra
+WIN:
+call nwLine
+printn "Felicidades Has Ganado $"
+call nwLine
+
 cld 
 jmp exit 
 
@@ -348,7 +332,156 @@ cmp ch,15
 jnz printArray
     
 RET    
-printSoup ENDP    
+printSoup ENDP 
+
+;Borrar el bufer de entrada
+clearBuffer PROC
+xor bx, bx
+mov bl, bufferPalabra[1]
+mov bufferPalabra[bx+2], ' '
+
+looop:    
+mov bufferPalabra[bx+2], ' '
+sub bl,1
+cmp bl,0
+jz bay
+jnz looop
+
+bay:
+ret
+ 
+clearBuffer ENDP
+
+
+ 
+esAcierto PROC
+jmp inicio    
+    
+size = 16  ; tamanio de todas las palabras
+palabraA1       db 'perro           '
+palabraA2       db 'ave                           '
+palabraA3       db 'conejo                        '
+palabraA4       db 'pez                           '
+palabraA5       db 'gato                          ' 
+ 
+p1  db 0
+p2  db 0
+p3  db 0
+p4  db 0
+p5  db 0
+
+
+inicio:
+;quitar caracteres raros al input
+xor bx, bx
+mov bl, bufferPalabra[1]
+mov bufferPalabra[bx+2], ' '
+;inicializacion de segmentos
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+mov     cx, size 
+
+;Es perro?
+cmp p1, 1
+jz yaEncontrada
+lea     di, palabraA1
+repe    cmpsb
+jz      setP1
+
+;Es ave?
+cmp p2, 1
+jz yaEncontrada
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+lea     di, palabraA2
+repe    cmpsb
+jz      setP2 
+;Es conejo?
+cmp p3, 1
+jz yaEncontrada
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+lea     di, palabraA3
+repe    cmpsb
+jz      setP3
+;Es pez?
+cmp p4, 1
+jz yaEncontrada
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+lea     di, palabraA4
+repe    cmpsb
+jz      setP4
+;Es gato?
+cmp p5, 1
+jz yaEncontrada
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+lea     di, palabraA5
+repe    cmpsb
+jz      setP5
+jnz     not_equal ; NINGUNA
+ 
+yes db " - Yes $"
+no  db " - No$"
+encontrada db " - ya encontrada"
+
+equal:
+lea dx, yes
+mov ah, 9
+int 21h
+CALL nwLine
+call clearBuffer
+RET
+
+not_equal:
+lea dx, no
+mov ah, 9
+int 21h
+CALL nwLine
+call clearBuffer
+RET
+
+yaEncontrada:
+lea dx, yes
+mov ah, 9
+int 21h
+CALL nwLine
+call clearBuffer
+RET
+
+setP1:
+mov p1, 1
+add aciertos, 1
+jmp equal
+setP2:
+mov p2, 1
+add aciertos, 1
+jmp equal
+setP3:
+add aciertos, 1
+mov p3, 1
+jmp equal
+setP4:
+add aciertos, 1
+mov p4, 1
+jmp equal
+setP5:
+add aciertos, 1
+mov p5, 1
+jmp equal  
+  
+esAcierto ENDP
          
 ;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
 
