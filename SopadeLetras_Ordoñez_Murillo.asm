@@ -179,7 +179,10 @@ cmp al, 32h
 jz vehiculos
 cmp al, 33h
 jz lenguajes
-jmp errorIngreso  
+jmp errorIngreso 
+
+
+;;;;;; ANIMALES  ;;;;;;;
 
 animales:
 call nwLine
@@ -215,9 +218,10 @@ int 21h
 mov dx, offset palabra
 mov ah, 0ah
 int 21h
-jmp exit
+jmp exit 
 
 
+;;;;;; VEHICULOS  ;;;;;;;
 vehiculos:
 call nwLine
 printn 'Usted ha escogido vehiculos de transporte'
@@ -239,6 +243,7 @@ cmp al, 32h
 jmp errorIngreso
 
 
+;;;;;; LENGUAJES  ;;;;;;;
 
 lenguajes:
 call nwLine
