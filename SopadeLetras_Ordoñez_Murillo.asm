@@ -274,10 +274,10 @@ mov byte ptr[si],41
 mov byte ptr[si+1],26
 mov byte ptr[si+2],11
 lea si,posA4
-mov byte ptr[si],72
-mov byte ptr[si+1],86
-mov byte ptr[si+2],100
-mov byte ptr[si+3],114
+mov byte ptr[si],71
+mov byte ptr[si+1],85
+mov byte ptr[si+2],99
+mov byte ptr[si+3],113
 lea si,posA5
 mov byte ptr[si],139
 mov byte ptr[si+1],125
@@ -287,7 +287,433 @@ mov byte ptr[si+4],83
 mov byte ptr[si+5],69
 
 lea si, animales1
+jmp MainView
 
+animalesv2:
+call nwLine
+printn 'Usted ha escogido animales - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'f'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'c'
+mov byte ptr[si+3],'a'
+lea si, palabraA2
+mov byte ptr[si],'l'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'b'
+mov byte ptr[si+3],'o'
+lea si, palabraA3
+mov byte ptr[si],'g'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'r'
+mov byte ptr[si+3],'i'
+mov byte ptr[si+4],'l'
+mov byte ptr[si+5],'a'
+lea si, palabraA4
+mov byte ptr[si],'p'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'n'
+mov byte ptr[si+3],'d'
+mov byte ptr[si+4],'a'
+lea si, palabraA5
+mov byte ptr[si],'l'
+mov byte ptr[si+1],'e'
+mov byte ptr[si+2],'o'
+mov byte ptr[si+3],'n'
+
+lea si, posA1
+mov byte ptr[si],100
+mov byte ptr[si+1],86
+mov byte ptr[si+2],72
+mov byte ptr[si+3],58
+lea si,posA2
+mov byte ptr[si],119
+mov byte ptr[si+1],134
+mov byte ptr[si+2],149
+mov byte ptr[si+3],164
+lea si,posA3
+mov byte ptr[si],0
+mov byte ptr[si+1],16
+mov byte ptr[si+2],32
+mov byte ptr[si+3],48
+mov byte ptr[si+4],64
+mov byte ptr[si+5],80
+lea si,posA4
+mov byte ptr[si],90
+mov byte ptr[si+1],91
+mov byte ptr[si+2],92
+mov byte ptr[si+3],93
+mov byte ptr[si+4],94
+lea si,posA5
+mov byte ptr[si],57
+mov byte ptr[si+1],42
+mov byte ptr[si+2],27
+mov byte ptr[si+3],12
+
+lea si, animales2
+jmp MainView
+
+
+;;;;;; VEHICULOS  ;;;;;;;
+vehiculos:
+call nwLine
+printn 'Usted ha escogido vehiculos de transporte'
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+jz vehiculosv1
+cmp al, 32h
+jz vehiculosv2
+jmp errorIngreso
+
+vehiculosv1:
+call nwLine
+printn 'Usted ha escogido vehiculos - version 1'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'a'
+mov byte ptr[si+1],'v'
+mov byte ptr[si+2],'i'
+mov byte ptr[si+3],'o'
+mov byte ptr[si+4],'n'
+lea si, palabraA2
+mov byte ptr[si],'c'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'r'
+mov byte ptr[si+3],'r'
+mov byte ptr[si+4],'o'
+lea si, palabraA3
+mov byte ptr[si],'b'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'r'
+mov byte ptr[si+3],'c'
+mov byte ptr[si+4],'o'
+lea si, palabraA4
+mov byte ptr[si],'t'
+mov byte ptr[si+1],'r'
+mov byte ptr[si+2],'e'
+mov byte ptr[si+3],'n'
+lea si, palabraA5
+mov byte ptr[si],'b'
+mov byte ptr[si+1],'u'
+mov byte ptr[si+2],'s'
+
+lea si, posA1
+mov byte ptr[si],100
+mov byte ptr[si+1],84
+mov byte ptr[si+2],68
+mov byte ptr[si+3],52
+mov byte ptr[si+4],36
+lea si,posA2
+mov byte ptr[si],203
+mov byte ptr[si+1],202
+mov byte ptr[si+2],201
+mov byte ptr[si+3],200
+mov byte ptr[si+4],199
+lea si,posA3
+mov byte ptr[si],217
+mov byte ptr[si+1],202
+mov byte ptr[si+2],187
+mov byte ptr[si+3],172
+mov byte ptr[si+4],157
+lea si,posA4
+mov byte ptr[si],18
+mov byte ptr[si+1],32
+mov byte ptr[si+2],46
+mov byte ptr[si+3],60
+lea si,posA5
+mov byte ptr[si],37
+mov byte ptr[si+1],23
+mov byte ptr[si+2],9
+
+lea si, vehiculos1
+jmp MainView
+
+vehiculosv2:
+call nwLine
+printn 'Usted ha escogido vehiculos - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'b'
+mov byte ptr[si+1],'i'
+mov byte ptr[si+2],'c'
+mov byte ptr[si+3],'i'
+mov byte ptr[si+4],'c'
+mov byte ptr[si+5],'l'
+mov byte ptr[si+6],'e'
+mov byte ptr[si+7],'t'
+mov byte ptr[si+8],'a'
+lea si, palabraA2
+mov byte ptr[si],'l'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'c'
+mov byte ptr[si+3],'o'
+mov byte ptr[si+4],'m'
+mov byte ptr[si+5],'o'
+mov byte ptr[si+6],'t'
+mov byte ptr[si+7],'o'
+mov byte ptr[si+8],'r'
+mov byte ptr[si+9],'a'
+lea si, palabraA3
+mov byte ptr[si],'c'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'m'
+mov byte ptr[si+3],'i'
+mov byte ptr[si+4],'o'
+mov byte ptr[si+5],'n'
+lea si, palabraA4
+mov byte ptr[si],'m'
+mov byte ptr[si+1],'o'
+mov byte ptr[si+2],'t'
+mov byte ptr[si+3],'o'
+lea si, palabraA5
+mov byte ptr[si],'j'
+mov byte ptr[si+1],'e'
+mov byte ptr[si+2],'t'
+
+lea si, posA1
+mov byte ptr[si],11
+mov byte ptr[si+1],25
+mov byte ptr[si+2],39
+mov byte ptr[si+3],53
+mov byte ptr[si+4],67
+mov byte ptr[si+5],81
+mov byte ptr[si+6],95
+mov byte ptr[si+7],109
+mov byte ptr[si+8],123
+lea si,posA2
+mov byte ptr[si],210
+mov byte ptr[si+1],211
+mov byte ptr[si+2],212
+mov byte ptr[si+3],213
+mov byte ptr[si+4],214
+mov byte ptr[si+5],215
+mov byte ptr[si+6],216
+mov byte ptr[si+7],217
+mov byte ptr[si+8],218
+mov byte ptr[si+9],219
+lea si,posA3
+mov byte ptr[si],135
+mov byte ptr[si+1],136
+mov byte ptr[si+2],137
+mov byte ptr[si+3],138
+mov byte ptr[si+4],139
+mov byte ptr[si+5],140
+lea si,posA4
+mov byte ptr[si],4
+mov byte ptr[si+1],19
+mov byte ptr[si+2],34
+mov byte ptr[si+3],49
+lea si,posA5
+mov byte ptr[si],68
+mov byte ptr[si+1],84
+mov byte ptr[si+2],100
+
+lea si, vehiculos2
+jmp MainView
+
+;;;;;; LENGUAJES  ;;;;;;;
+
+lenguajes:
+call nwLine
+printn 'Usted ha escogido lenguajes de programacion'
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+jz lenguajesv1
+cmp al, 32h
+jz lenguajesv2
+jmp errorIngreso
+
+lenguajesv1:
+call nwLine
+printn 'Usted ha escogido lenguajes de programacion - version 1'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'c'
+mov byte ptr[si+1],'s'
+mov byte ptr[si+2],'h'
+mov byte ptr[si+3],'a'
+mov byte ptr[si+4],'r'
+mov byte ptr[si+5],'p'
+lea si, palabraA2
+mov byte ptr[si],'p'
+mov byte ptr[si+1],'y'
+mov byte ptr[si+2],'t'
+mov byte ptr[si+3],'h'
+mov byte ptr[si+4],'o'
+mov byte ptr[si+5],'n'
+lea si, palabraA3
+mov byte ptr[si],'j'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'v'
+mov byte ptr[si+3],'a'
+lea si, palabraA4
+mov byte ptr[si],'r'
+mov byte ptr[si+1],'u'
+mov byte ptr[si+2],'b'
+mov byte ptr[si+3],'y'
+lea si, palabraA5
+mov byte ptr[si],'p'
+mov byte ptr[si+1],'a'
+mov byte ptr[si+2],'s'
+mov byte ptr[si+3],'c'
+mov byte ptr[si+4],'a'
+mov byte ptr[si+5],'l'
+
+lea si, posA1
+mov byte ptr[si],16
+mov byte ptr[si+1],17
+mov byte ptr[si+2],18
+mov byte ptr[si+3],19
+mov byte ptr[si+4],20
+mov byte ptr[si+5],21
+lea si,posA2
+mov byte ptr[si],24
+mov byte ptr[si+1],38
+mov byte ptr[si+2],52
+mov byte ptr[si+3],66
+mov byte ptr[si+4],80
+mov byte ptr[si+5],94
+lea si,posA3
+mov byte ptr[si],85
+mov byte ptr[si+1],100
+mov byte ptr[si+2],115
+mov byte ptr[si+3],130
+lea si,posA4
+mov byte ptr[si],54
+mov byte ptr[si+1],70
+mov byte ptr[si+2],86
+mov byte ptr[si+3],102
+lea si,posA5
+mov byte ptr[si],12
+mov byte ptr[si+1],27
+mov byte ptr[si+2],42
+mov byte ptr[si+3],57
+mov byte ptr[si+4],72
+mov byte ptr[si+5],87
+
+lea si, lenguajes1
+jmp MainView 
+
+lenguajesv2:
+call nwLine
+printn 'Usted ha escogido lenguajes de programacion - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],'a'
+mov byte ptr[si+1],'s'
+mov byte ptr[si+2],'s'
+mov byte ptr[si+3],'e'
+mov byte ptr[si+4],'m'
+mov byte ptr[si+5],'b'
+mov byte ptr[si+6],'l'
+mov byte ptr[si+7],'y'
+lea si, palabraA2
+mov byte ptr[si],'s'
+mov byte ptr[si+1],'w'
+mov byte ptr[si+2],'i'
+mov byte ptr[si+3],'f'
+mov byte ptr[si+4],'t'
+lea si, palabraA3
+mov byte ptr[si],'c'
+mov byte ptr[si+1],'l'
+mov byte ptr[si+2],'o'
+mov byte ptr[si+3],'j'
+mov byte ptr[si+4],'u'
+mov byte ptr[si+5],'r'
+mov byte ptr[si+6],'e'
+lea si, palabraA4
+mov byte ptr[si],'v'
+mov byte ptr[si+1],'i'
+mov byte ptr[si+2],'s'
+mov byte ptr[si+3],'u'
+mov byte ptr[si+4],'a'
+mov byte ptr[si+5],'l'
+mov byte ptr[si+6],'b'
+mov byte ptr[si+7],'a'
+mov byte ptr[si+8],'s'
+mov byte ptr[si+9],'i'
+mov byte ptr[si+10],'c'
+lea si, palabraA5
+mov byte ptr[si],'r'
+mov byte ptr[si+1],'s'
+mov byte ptr[si+2],'c'
+mov byte ptr[si+3],'r'
+mov byte ptr[si+4],'i'
+mov byte ptr[si+5],'p'
+mov byte ptr[si+6],'t'
+
+lea si, posA1
+mov byte ptr[si],139
+mov byte ptr[si+1],140
+mov byte ptr[si+2],141
+mov byte ptr[si+3],142
+mov byte ptr[si+4],143
+mov byte ptr[si+5],144
+mov byte ptr[si+6],145
+mov byte ptr[si+7],146
+lea si,posA2
+mov byte ptr[si],0
+mov byte ptr[si+1],16
+mov byte ptr[si+2],32
+mov byte ptr[si+3],48
+mov byte ptr[si+4],64
+lea si,posA3
+mov byte ptr[si],54
+mov byte ptr[si+1],68
+mov byte ptr[si+2],82
+mov byte ptr[si+3],96
+mov byte ptr[si+4],110
+mov byte ptr[si+5],124
+mov byte ptr[si+6],138
+lea si,posA4
+mov byte ptr[si],10
+mov byte ptr[si+1],24
+mov byte ptr[si+2],38
+mov byte ptr[si+3],52
+mov byte ptr[si+4],66
+mov byte ptr[si+5],80
+mov byte ptr[si+6],94
+mov byte ptr[si+7],108
+mov byte ptr[si+8],122
+mov byte ptr[si+9],136
+mov byte ptr[si+10],150
+lea si,posA5
+mov byte ptr[si],57
+mov byte ptr[si+1],72
+mov byte ptr[si+2],87
+mov byte ptr[si+3],102
+mov byte ptr[si+4],117
+mov byte ptr[si+5],132
+mov byte ptr[si+5],147
+
+lea si, lenguajes2
+jmp MainView
 
 MainView:
 ;call printArrays
@@ -322,49 +748,9 @@ cld
 jmp exit 
 
 
-;;;;;; VEHICULOS  ;;;;;;;
-vehiculos:
-call nwLine
-printn 'Usted ha escogido vehiculos de transporte'
-;esta partecita imprime un mensaje y
-;pide el valor para la version
-CALL nwLine
-CALL nwLine
-lea dx, msgVersion
-mov ah, 09h
-int 21h
-MOV AH, 01h
-INT 21h
-
-;Esta parte hace la bifurcacion entre version 1 o 2
-cmp al, 31h
-;jz vehiculosv1
-cmp al, 32h
-;jz vehiculosv2
-jmp errorIngreso
 
 
-;;;;;; LENGUAJES  ;;;;;;;
 
-lenguajes:
-call nwLine
-printn 'Usted ha escogido lenguajes de programacion'
-;esta partecita imprime un mensaje y
-;pide el valor para la version
-CALL nwLine
-CALL nwLine
-lea dx, msgVersion
-mov ah, 09h
-int 21h
-MOV AH, 01h
-INT 21h
-
-;Esta parte hace la bifurcacion entre version 1 o 2
-cmp al, 31h
-;jz lenguajesv1
-cmp al, 32h
-;jz lenguajesv2
-jmp errorIngreso
 
 
 
@@ -457,7 +843,7 @@ printArrays endp
 valueInArray proc
 
 mov flag, 0
-mov di,0001h
+mov di,0000h
 iterar:
 mov dh, indx[di]
 cmp dh,226
@@ -515,6 +901,7 @@ xor bx, bx
 mov bl, bufferPalabra[1]
 mov bufferPalabra[bx+2], ' '
 ;inicializacion de segmentos
+push si
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -580,6 +967,7 @@ call printArrays
 RET
 
 not_equal:
+pop si
 lea dx, no
 mov ah, 9
 int 21h
@@ -597,6 +985,7 @@ RET
 
 setP1:
 ;verifica si la palabra 1 fue encontrada
+pop si
 cmp p1, 1
 jz yaEncontrada
 ;actualiza variable y muestra mensaje
@@ -616,16 +1005,17 @@ lea di,posA1
 agregacionP1:
 mov bl,i
 lea si,indx
-add di, ax
-mov cl, byte ptr[di] 
+mov cl, byte ptr[di]
+cmp cl,226
+jz equal
+add di, 1 
 mov byte ptr[si+bx], cl
 add i,1
 add al,1
-cmp cl,226
-jz equal
 jnz agregacionP1
 
 setP2:
+pop si
 cmp p2, 1
 jz yaEncontrada
 mov p2, 1
@@ -644,16 +1034,17 @@ lea di,posA2
 agregacionP2:
 mov bl,i
 lea si,indx
-add di, ax
-mov cl, byte ptr[di] 
+mov cl, byte ptr[di]
+cmp cl,226
+jz equal
+add di, 1 
 mov byte ptr[si+bx], cl
 add i,1
 add al,1
-cmp cl,226
-jz equal
-jnz agregacionP2
+jmp agregacionP2
 
 setP3:
+pop si
 cmp p3, 1
 jz yaEncontrada
 add aciertos, 1
@@ -672,16 +1063,17 @@ lea di,posA3
 agregacionP3:
 mov bl,i
 lea si,indx
-add di, ax
-mov cl, byte ptr[di] 
+mov cl, byte ptr[di]
+cmp cl,226
+jz equal
+add di, 1 
 mov byte ptr[si+bx], cl
 add i,1
 add al,1
-cmp cl,226
-jz equal
-jnz agregacionP3
+jmp agregacionP3
 
 setP4:
+pop si
 cmp p4, 1
 jz yaEncontrada
 add aciertos, 1
@@ -700,16 +1092,17 @@ lea di,posA4
 agregacionP4:
 mov bl,i
 lea si,indx
-add di, ax
-mov cl, byte ptr[di] 
+mov cl, byte ptr[di]
+cmp cl,226
+jz equal
+add di, 1 
 mov byte ptr[si+bx], cl
 add i,1
 add al,1
-cmp cl,226
-jz equal
-jnz agregacionP4
+jmp agregacionP4
 
-setP5: 
+setP5:
+pop si 
 cmp p5, 1
 jz yaEncontrada
 add aciertos, 1
@@ -728,8 +1121,8 @@ lea di,posA5
 agregacionP5:
 mov bl,i
 lea si,indx
-add di, ax
-mov cl, byte ptr[di] 
+mov cl, byte ptr[di]
+add di, 1 
 mov byte ptr[si+bx], cl
 add i,1
 add al,1
