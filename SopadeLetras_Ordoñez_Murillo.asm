@@ -17,7 +17,7 @@ msgVersion db "Ingrese una version (1 o 2): $"
 msgPalabra      db  " Ingresa una palabra: $"
 bufferPalabra   db 14,?, 14 dup(' ')  
 aciertos        db 0
-
+haRenunciado    db 0
 
 
 
@@ -224,40 +224,42 @@ INT 21h
 cmp al, 31h
 jz animalesv1 
 cmp al, 32h
-;jz animalesv2
+jz animalesv2
 jmp errorIngreso
 
 animalesv1:
 call nwLine
 printn 'Usted ha escogido animales - version 1'
 call nwLine
+printn '(i) puede escribir (renuncio) para salir'
+call nwLine
 ;Asignacion de palabras
 lea si, palabraA1
-mov byte ptr[si],'p'
-mov byte ptr[si+1],'e'
-mov byte ptr[si+2],'r'
-mov byte ptr[si+3],'r'
-mov byte ptr[si+4],'o'
+mov byte ptr[si],   'p'
+mov byte ptr[si+1], 'e'
+mov byte ptr[si+2], 'r'
+mov byte ptr[si+3], 'r'
+mov byte ptr[si+4], 'o'
 lea si, palabraA2
-mov byte ptr[si],'a'
-mov byte ptr[si+1],'v'
-mov byte ptr[si+2],'e'
+mov byte ptr[si],   'a'
+mov byte ptr[si+1], 'v'
+mov byte ptr[si+2], 'e'
 lea si, palabraA3
-mov byte ptr[si],'p'
-mov byte ptr[si+1],'e'
-mov byte ptr[si+2],'z'
+mov byte ptr[si],   'p'
+mov byte ptr[si+1], 'e'
+mov byte ptr[si+2], 'z'
 lea si, palabraA4
-mov byte ptr[si],'g'
-mov byte ptr[si+1],'a'
-mov byte ptr[si+2],'t'
-mov byte ptr[si+3],'o'
+mov byte ptr[si],   'g'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 't'
+mov byte ptr[si+3], 'o'
 lea si, palabraA5
-mov byte ptr[si],'c'
-mov byte ptr[si+1],'o'
-mov byte ptr[si+2],'n'
-mov byte ptr[si+3],'e'
-mov byte ptr[si+4],'j'
-mov byte ptr[si+5],'o'
+mov byte ptr[si],   'c'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 'n'
+mov byte ptr[si+3], 'e'
+mov byte ptr[si+4], 'j'
+mov byte ptr[si+5], 'o'
 
 lea si, posA1
 mov byte ptr[si],124
@@ -287,6 +289,271 @@ mov byte ptr[si+4],83
 mov byte ptr[si+5],69
 
 lea si, animales1
+jmp MainView
+
+animalesv2:
+call nwLine
+printn 'Usted ha escogido ANIMALES - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],   'f'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 'c'
+mov byte ptr[si+3], 'a'
+lea si, palabraA2
+mov byte ptr[si],   'l'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 'b'
+mov byte ptr[si+3], 'o'
+lea si, palabraA3
+mov byte ptr[si],   'g'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 'r'
+mov byte ptr[si+3], 'i'
+mov byte ptr[si+4], 'l'
+mov byte ptr[si+5], 'a'
+lea si, palabraA4
+mov byte ptr[si],   'p'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 'n'
+mov byte ptr[si+3], 'd'
+mov byte ptr[si+4], 'a'
+lea si, palabraA5
+mov byte ptr[si],   'l'
+mov byte ptr[si+1], 'e'
+mov byte ptr[si+2], 'o'
+mov byte ptr[si+3], 'n'
+
+lea si, animales2
+jmp MainView
+
+;;;;;; VEHICULOS  ;;;;;;;
+vehiculos:
+call nwLine
+printn 'Usted ha escogido VEHICULOS DE TRANSPORTE'
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+jz vehiculosv1
+cmp al, 32h
+jz vehiculosv2
+jmp errorIngreso
+
+vehiculosv1:
+call nwLine
+printn 'Usted ha escogido VEHICULOS - version 1'
+call nwLine
+printn '(i) puede escribir (renuncio) para salir'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],   'a'
+mov byte ptr[si+1], 'v'
+mov byte ptr[si+2], 'i'
+mov byte ptr[si+3], 'o'
+mov byte ptr[si+4], 'n'
+lea si, palabraA2
+mov byte ptr[si],   'c'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 'r'
+mov byte ptr[si+3], 'r'
+mov byte ptr[si+4], 'o'
+lea si, palabraA3
+mov byte ptr[si],   'b'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 'r'
+mov byte ptr[si+3], 'c'
+mov byte ptr[si+4], 'o'
+lea si, palabraA4
+mov byte ptr[si],   't'
+mov byte ptr[si+1], 'r'
+mov byte ptr[si+2], 'e'
+mov byte ptr[si+3], 'n'
+lea si, palabraA5
+mov byte ptr[si],   'b'
+mov byte ptr[si+1], 'u'
+mov byte ptr[si+2], 's'
+
+lea si, vehiculos1
+jmp MainView
+
+vehiculosv2:
+call nwLine
+printn 'Usted ha escogido VEHICULOS - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],   'b'
+mov byte ptr[si+1], 'i'
+mov byte ptr[si+2], 'c'
+mov byte ptr[si+3], 'i'
+mov byte ptr[si+4], 'c'
+mov byte ptr[si+5], 'l'
+mov byte ptr[si+6], 'e'
+mov byte ptr[si+7], 't'
+mov byte ptr[si+8], 'a'
+lea si, palabraA2
+mov byte ptr[si],   'l'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 'c'
+mov byte ptr[si+3], 'o'
+mov byte ptr[si+4], 'm'
+mov byte ptr[si+5], 'o'
+mov byte ptr[si+6], 't'
+mov byte ptr[si+7], 'o'
+mov byte ptr[si+8], 'r'
+mov byte ptr[si+9], 'a'
+lea si, palabraA3
+mov byte ptr[si],   'c'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 'm'
+mov byte ptr[si+3], 'i'
+mov byte ptr[si+4], 'o'
+mov byte ptr[si+5], 'n'
+lea si, palabraA4
+mov byte ptr[si],   'm'
+mov byte ptr[si+1], 'o'
+mov byte ptr[si+2], 't'
+mov byte ptr[si+3], 'o'
+lea si, palabraA5
+mov byte ptr[si],   'j'
+mov byte ptr[si+1], 'e'
+mov byte ptr[si+2], 't'
+
+lea si, vehiculos2
+jmp MainView
+
+
+;;;;;; LENGUAJES  ;;;;;;;
+
+lenguajes:
+call nwLine
+printn 'Usted ha escogido LENGUAJES DE PROGRAMACION'
+;esta partecita imprime un mensaje y
+;pide el valor para la version
+CALL nwLine
+CALL nwLine
+lea dx, msgVersion
+mov ah, 09h
+int 21h
+MOV AH, 01h
+INT 21h
+
+;Esta parte hace la bifurcacion entre version 1 o 2
+cmp al, 31h
+jz lenguajesv1
+cmp al, 32h
+jz lenguajesv2
+jmp errorIngreso
+
+lenguajesv1:
+call nwLine
+printn 'Usted ha escogido LENGUAJES - version 1'
+call nwLine
+printn '(i) puede escribir (renuncio) para salir'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],   'c'
+mov byte ptr[si+1], 's'
+mov byte ptr[si+2], 'h'
+mov byte ptr[si+3], 'a'
+mov byte ptr[si+4], 'r'
+mov byte ptr[si+5], 'p'
+lea si, palabraA2
+mov byte ptr[si],   'p'
+mov byte ptr[si+1], 'y'
+mov byte ptr[si+2], 't'
+mov byte ptr[si+3], 'h'
+mov byte ptr[si+4], 'o'
+mov byte ptr[si+5], 'n'
+lea si, palabraA3
+mov byte ptr[si],   'j'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 'v'  
+mov byte ptr[si+3], 'a'
+lea si, palabraA4
+mov byte ptr[si],   'r'
+mov byte ptr[si+1], 'u'
+mov byte ptr[si+2], 'b'
+mov byte ptr[si+3], 'y'
+lea si, palabraA5
+mov byte ptr[si],   'p'
+mov byte ptr[si+1], 'a'
+mov byte ptr[si+2], 's'
+mov byte ptr[si+3], 'c'
+mov byte ptr[si+4], 'a'
+mov byte ptr[si+5], 'l'
+
+lea si, lenguajes1
+jmp MainView
+
+lenguajesv2:
+call nwLine
+printn 'Usted ha escogido LENGUAJES - version 2'
+call nwLine
+;Asignacion de palabras
+lea si, palabraA1
+mov byte ptr[si],   'a'
+mov byte ptr[si+1], 's'
+mov byte ptr[si+2], 's'
+mov byte ptr[si+3], 'e'
+mov byte ptr[si+4], 'm'
+mov byte ptr[si+5], 'b'
+mov byte ptr[si+6], 'l'
+mov byte ptr[si+7], 'y'
+lea si, palabraA2
+mov byte ptr[si],   's'
+mov byte ptr[si+1], 'w'
+mov byte ptr[si+2], 'i'
+mov byte ptr[si+3], 'f' 
+mov byte ptr[si+4], 't'
+lea si, palabraA3
+mov byte ptr[si],   'c'
+mov byte ptr[si+1], 'l'
+mov byte ptr[si+2], 'o'
+mov byte ptr[si+3], 'j'
+mov byte ptr[si+4], 'u'
+mov byte ptr[si+5], 'r'
+mov byte ptr[si+6], 'e'
+lea si, palabraA4
+mov byte ptr[si],   'v'
+mov byte ptr[si+1], 'i'
+mov byte ptr[si+2], 's'
+mov byte ptr[si+3], 'u'
+mov byte ptr[si+4], 'a'
+mov byte ptr[si+5], 'l'
+mov byte ptr[si+6], 'b'
+mov byte ptr[si+7], 'a'
+mov byte ptr[si+8], 's'
+mov byte ptr[si+9], 'i'
+mov byte ptr[si+10],'c'
+
+lea si, palabraA5
+mov byte ptr[si],   'r'
+mov byte ptr[si+1], 's'
+mov byte ptr[si+2], 'c'
+mov byte ptr[si+3], 'r'
+mov byte ptr[si+4], 'i'
+mov byte ptr[si+5], 'p'
+mov byte ptr[si+6], 't'
+
+lea si, lenguajes2
+jmp MainView
+
+     
+     
+; >>>> Loop del Juego <<<<<
 
 
 MainView:
@@ -302,70 +569,19 @@ mov dx, offset bufferPalabra
 mov ah, 0ah
 int 21h
 
+call toLowerBuffer
+
+call esRenuncia
+cmp haRenunciado,1
+jz LOSE 
+
 call esAcierto 
 cld
+
 
 cmp aciertos, 5
 jnz MainView
 jz WIN
-
-
-cld 
-jmp MainView  
-;comparar palabra
-WIN:
-call nwLine
-printn "Felicidades Has Ganado $"
-call nwLine
-
-cld 
-jmp exit 
-
-
-;;;;;; VEHICULOS  ;;;;;;;
-vehiculos:
-call nwLine
-printn 'Usted ha escogido vehiculos de transporte'
-;esta partecita imprime un mensaje y
-;pide el valor para la version
-CALL nwLine
-CALL nwLine
-lea dx, msgVersion
-mov ah, 09h
-int 21h
-MOV AH, 01h
-INT 21h
-
-;Esta parte hace la bifurcacion entre version 1 o 2
-cmp al, 31h
-;jz vehiculosv1
-cmp al, 32h
-;jz vehiculosv2
-jmp errorIngreso
-
-
-;;;;;; LENGUAJES  ;;;;;;;
-
-lenguajes:
-call nwLine
-printn 'Usted ha escogido lenguajes de programacion'
-;esta partecita imprime un mensaje y
-;pide el valor para la version
-CALL nwLine
-CALL nwLine
-lea dx, msgVersion
-mov ah, 09h
-int 21h
-MOV AH, 01h
-INT 21h
-
-;Esta parte hace la bifurcacion entre version 1 o 2
-cmp al, 31h
-;jz lenguajesv1
-cmp al, 32h
-;jz lenguajesv2
-jmp errorIngreso
-
 
 
 
@@ -562,7 +778,7 @@ jnz     not_equal ; NINGUNA
  
 yes db " - Yes $"
 no  db " - No$"
-encontrada db " - ya encontrada"
+encontrada db " - ya encontrada$"
 
 equal:
 pop si
@@ -576,7 +792,7 @@ mov ah, 9
 int 21h
 CALL nwLine
 call clearBuffer
-call printArrays
+;call printArrays
 RET
 
 not_equal:
@@ -738,6 +954,78 @@ jz equal
 jnz agregacionP5 
   
 esAcierto ENDP
+
+
+;>>> comprobacion para saber si 
+;>>> el usuario renuncio
+esRenuncia PROC
+jmp comparacion    
+clave db "renuncio    "    
+
+comparacion:    
+
+;quitar caracteres raros al input
+xor bx, bx
+mov bl, bufferPalabra[1]
+mov bufferPalabra[bx+2], ' '
+;inicializacion de segmentos
+mov     ax, cs
+mov     ds, ax
+mov     es, ax
+lea     si, bufferPalabra[2]
+mov     cx, 12 
+
+;Es renuncia?
+lea     di, clave
+repe    cmpsb
+jz      setRenuncia
+RET
+
+setRenuncia:
+mov haRenunciado, 1
+ret
+    
+esRenuncia ENDP
+
+;Convierte la variable
+;bufferPalabra a minuscula
+toLowerBuffer PROC
+
+mov bx, 1
+mov cl, 26
+ 
+loopCaracteres:
+mov ch, 40h
+inc bx
+cmp bx, size
+jz  terminar
+
+; aqui se asigna al array deseado
+mov al, bufferPalabra[bx]
+     
+    ;ciclo para comparar 
+    ; del ascci 41 al 5A     
+    de_41_a_5A:
+    inc ch
+    cmp al, ch
+    jz convertir
+    ;end ciclo
+    cmp ch, 5Ah
+    jnz de_41_a_5A
+    jz loopCaracteres
+
+convertir:
+;desplazar al equivalente minuscula
+add al, 20h            
+mov bufferPalabra[bx],al 
+
+cmp bx, size
+jnz loopCaracteres
+
+terminar:
+RET    
+    
+toLowerBuffer ENDP    
          
 ;;;;;;; FIN PROCEMIENTOS ;;;;;;;;
 
@@ -749,7 +1037,22 @@ printn '!! Favor ingresar un valor valido !! . . .'
 CALL nwLine 
 CALL nwLine
 jmp menuInicio
+ 
+ 
+;MENSAJE SE VICTORIA
+WIN:
+call nwLine
+printn "Felicidades Has Ganado"
+call nwLine
+jmp exit 
 
+;MENSAJE SE DERROTA
+LOSE:
+call nwLine
+printn "Buena suerte la proxima"
+call nwLine
+jmp exit 
+ 
   
 exit:
 end         
