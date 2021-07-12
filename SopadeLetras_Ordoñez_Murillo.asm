@@ -118,11 +118,22 @@ lenguajes2  db 'SLKFMBCULKVYUIM'
             db 'XXRXJUJUBEXVGGA'
             db 'MNKJQKZAACVCLDW'
         
-palabraA1       db 12 dup (' ')
-palabraA2       db 12 dup (' ')
-palabraA3       db 12 dup (' ')
-palabraA4       db 12 dup (' ')
-palabraA5       db 12 dup (' ')  
+flag db 0
+
+palabraA1       db 12 dup (' ') ;perro, foca, avion, bicicleta, csharp, assembly
+palabraA2       db 12 dup (' ') ;ave, lobo, carro, locomotora, python, swift
+palabraA3       db 12 dup (' ') ;pez, gorila, barco, camion, java, clojure
+palabraA4       db 12 dup (' ') ;gato, panda, tren, moto, ruby, visualbasic
+palabraA5       db 12 dup (' ') ;conejo, leon, bus, jet, pascal, rscript
+
+posA1 db 12 dup(226)
+posA2 db 12 dup(226)
+posA3 db 12 dup(226)
+posA4 db 12 dup(226)
+posA5 db 12 dup(226)
+
+indx db 50 dup (226)
+i db 0  
 
 ;;;;;;; FIN VARIABLES ;;;;;;;;
 
@@ -248,6 +259,33 @@ mov byte ptr[si+3],'e'
 mov byte ptr[si+4],'j'
 mov byte ptr[si+5],'o'
 
+lea si, posA1
+mov byte ptr[si],124
+mov byte ptr[si+1],123
+mov byte ptr[si+2],122
+mov byte ptr[si+3],121
+mov byte ptr[si+4],120
+lea si,posA2
+mov byte ptr[si],107
+mov byte ptr[si+1],91
+mov byte ptr[si+2],75
+lea si,posA3
+mov byte ptr[si],41
+mov byte ptr[si+1],26
+mov byte ptr[si+2],11
+lea si,posA4
+mov byte ptr[si],72
+mov byte ptr[si+1],86
+mov byte ptr[si+2],100
+mov byte ptr[si+3],114
+lea si,posA5
+mov byte ptr[si],139
+mov byte ptr[si+1],125
+mov byte ptr[si+2],111
+mov byte ptr[si+3],97
+mov byte ptr[si+4],83
+mov byte ptr[si+5],69
+
 lea si, animales1
 
 
@@ -344,13 +382,18 @@ INT 21h
 RET
 nwLine ENDP
 
-
+;imprime array
 printArrays proc
+
+
 mov bx,0000h
 printArray:
 mov dx,0000h
 mov ah, 02h
 mov dl,byte ptr[si+bx]
+call valueinArray
+cmp flag,1
+jz printSpecial
 int 21h
 mov dl, 20h
 int 21h
@@ -369,9 +412,69 @@ cmp ch,15
 jz finproc
 jnz printArray
 
+printSpecial:
+
+
+
+push ax
+push bx
+push cx
+push dx
+
+mov dh,00h
+mov al, dl
+mov bh, 0
+mov bl, 1111_0000b
+mov cx, 1; calculate message size. 
+mov dx,0000h
+mov ah, 9h
+int 10h
+mov bh, 00h
+mov ah, 03h
+int 10h
+mov ah,02h
+add dl,1
+int 10h 
+mov dl, 20h
+int 21h
+
+pop dx
+pop cx
+pop bx
+pop ax
+add bx, 1
+add cl, 1
+cmp cl,15
+jz nextRow
+jnz printArray
+
 finproc:
+
 ret
-printArrays endp 
+printArrays endp
+
+;Verifica que un elemento este en el array
+valueInArray proc
+
+mov flag, 0
+mov di,0001h
+iterar:
+mov dh, indx[di]
+cmp dh,226
+jz finvalueproc
+cmp bl,dh
+jz found
+add di,1
+jmp iterar
+found:
+mov flag,1
+jmp finvalueproc:
+
+
+
+finvalueproc:
+ret
+valueInArray endp
 
 ;Borrar el bufer de entrada
 clearBuffer PROC
@@ -431,7 +534,7 @@ lea     si, bufferPalabra[2]
 lea     di, palabraA2
 repe    cmpsb
 jz      setP2 
-;Es conejo?
+;Es pez?
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -439,7 +542,7 @@ lea     si, bufferPalabra[2]
 lea     di, palabraA3
 repe    cmpsb
 jz      setP3
-;Es pez?
+;Es gato?
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -447,7 +550,7 @@ lea     si, bufferPalabra[2]
 lea     di, palabraA4
 repe    cmpsb
 jz      setP4
-;Es gato?
+;Es conejo?
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -462,11 +565,18 @@ no  db " - No$"
 encontrada db " - ya encontrada"
 
 equal:
+pop si
+pop dx
+pop cx
+pop bx
+pop ax
+
 lea dx, yes
 mov ah, 9
 int 21h
 CALL nwLine
 call clearBuffer
+call printArrays
 RET
 
 not_equal:
@@ -492,35 +602,140 @@ jz yaEncontrada
 ;actualiza variable y muestra mensaje
 mov p1, 1
 add aciertos, 1
-jmp equal
+push ax
+push bx
+push cx
+push dx
+push si
+mov ax,0000h
+mov bx,0000h
+mov cx,0000h
+mov dx,0000h
+mov si,0000h
+lea di,posA1
+agregacionP1:
+mov bl,i
+lea si,indx
+add di, ax
+mov cl, byte ptr[di] 
+mov byte ptr[si+bx], cl
+add i,1
+add al,1
+cmp cl,226
+jz equal
+jnz agregacionP1
 
 setP2:
 cmp p2, 1
 jz yaEncontrada
 mov p2, 1
 add aciertos, 1
-jmp equal
+push ax
+push bx
+push cx
+push dx
+push si
+mov ax,0000h
+mov bx,0000h
+mov cx,0000h
+mov dx,0000h
+mov si,0000h
+lea di,posA2
+agregacionP2:
+mov bl,i
+lea si,indx
+add di, ax
+mov cl, byte ptr[di] 
+mov byte ptr[si+bx], cl
+add i,1
+add al,1
+cmp cl,226
+jz equal
+jnz agregacionP2
 
 setP3:
 cmp p3, 1
 jz yaEncontrada
 add aciertos, 1
 mov p3, 1
-jmp equal
+push ax
+push bx
+push cx
+push dx
+push si
+mov ax,0000h
+mov bx,0000h
+mov cx,0000h
+mov dx,0000h
+mov si,0000h
+lea di,posA3
+agregacionP3:
+mov bl,i
+lea si,indx
+add di, ax
+mov cl, byte ptr[di] 
+mov byte ptr[si+bx], cl
+add i,1
+add al,1
+cmp cl,226
+jz equal
+jnz agregacionP3
 
 setP4:
 cmp p4, 1
 jz yaEncontrada
 add aciertos, 1
 mov p4, 1
-jmp equal
+push ax
+push bx
+push cx
+push dx
+push si
+mov ax,0000h
+mov bx,0000h
+mov cx,0000h
+mov dx,0000h
+mov si,0000h
+lea di,posA4
+agregacionP4:
+mov bl,i
+lea si,indx
+add di, ax
+mov cl, byte ptr[di] 
+mov byte ptr[si+bx], cl
+add i,1
+add al,1
+cmp cl,226
+jz equal
+jnz agregacionP4
 
 setP5: 
 cmp p5, 1
 jz yaEncontrada
 add aciertos, 1
 mov p5, 1
-jmp equal  
+push ax
+push bx
+push cx
+push dx
+push si
+mov ax,0000h
+mov bx,0000h
+mov cx,0000h
+mov dx,0000h
+mov si,0000h
+lea di,posA5
+agregacionP5:
+mov bl,i
+lea si,indx
+add di, ax
+mov cl, byte ptr[di] 
+mov byte ptr[si+bx], cl
+add i,1
+add al,1
+cmp cl,226
+jz equal
+jnz agregacionP5 
   
 esAcierto ENDP
          
