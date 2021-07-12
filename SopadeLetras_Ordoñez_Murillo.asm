@@ -1155,6 +1155,7 @@ xor bx, bx
 mov bl, bufferPalabra[1]
 mov bufferPalabra[bx+2], ' '
 ;inicializacion de segmentos
+push si
 mov     ax, cs
 mov     ds, ax
 mov     es, ax
@@ -1165,10 +1166,12 @@ mov     cx, 12
 lea     di, clave
 repe    cmpsb
 jz      setRenuncia
+pop si
 RET
 
 setRenuncia:
 mov haRenunciado, 1
+pop si
 ret
     
 esRenuncia ENDP
