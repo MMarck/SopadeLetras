@@ -156,7 +156,7 @@ mov dx,0000h
 menuInicio: 
 
 CALL nwLine
-;printn ' !!      Bienvenido al juego de sopa de letras   !!' 
+printn ' !!      Bienvenido al juego de sopa de letras   !!' 
 
 CALL nwLine
 MOV AH, 09h
@@ -289,6 +289,7 @@ mov byte ptr[si+4],83
 mov byte ptr[si+5],69
 
 lea si, animales1
+call printArrays
 jmp MainView
 
 animalesv2:
@@ -359,6 +360,7 @@ mov byte ptr[si+2],27
 mov byte ptr[si+3],12
 
 lea si, animales2
+call printArrays
 jmp MainView
 
 ;;;;;; VEHICULOS  ;;;;;;;
@@ -447,6 +449,7 @@ mov byte ptr[si+1],23
 mov byte ptr[si+2],9
 
 lea si, vehiculos1
+call printArrays
 jmp MainView
 
 vehiculosv2:
@@ -533,6 +536,7 @@ mov byte ptr[si+1],84
 mov byte ptr[si+2],100
 
 lea si, vehiculos2
+call printArrays
 jmp MainView
 
 ;;;;;; LENGUAJES  ;;;;;;;
@@ -630,6 +634,7 @@ mov byte ptr[si+4],72
 mov byte ptr[si+5],87
 
 lea si, lenguajes1
+call printArrays
 jmp MainView 
 
 lenguajesv2:
@@ -728,6 +733,7 @@ mov byte ptr[si+5],132
 mov byte ptr[si+5],147
 
 lea si, lenguajes2
+call printArrays
 jmp MainView
 
 
